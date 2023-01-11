@@ -27,7 +27,7 @@ jobs:
 workflows: 
   aws-cli: 
     when: 
-      equal: [ "create". << pipeline.parameters.GHA_Event >>] 
+      equal: [ "create", << pipeline.parameters.GHA_Event >>] 
     jobs: 
       - aws-cli-cred-setup:
           context: aws

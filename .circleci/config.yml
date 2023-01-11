@@ -99,7 +99,7 @@ workflows:
       - init-plan:
           requires: 
             - aws-cli-cred-setup
-      - delete: 
+      - destroy: 
           requires:
             - init-plan
   run-plan-apply: 

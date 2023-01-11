@@ -116,7 +116,7 @@ workflows:
             - init-plan
   run-plan-apply-branch: 
     when:
-      and: 
+      or: 
         - not:
           matches: 
             pattern: "^main$" 

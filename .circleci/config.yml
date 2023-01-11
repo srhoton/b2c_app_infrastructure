@@ -81,7 +81,7 @@ workflows:
     jobs: 
       - aws-cli-cred-setup:
           context: aws
-      - create_workspace: 
+      - create-workspace: 
           requires:
             - aws-cli-cred-setup
       - init-plan:
@@ -98,7 +98,7 @@ workflows:
           context: aws
       - init-plan:
           requires: 
-            - create_workspace
+            - aws-cli-cred-setup
       - delete: 
           requires:
             - init-plan

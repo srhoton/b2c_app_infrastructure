@@ -25,9 +25,15 @@ jobs:
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           aws-region: AWS_REGION
 workflows: 
-  aws-cli: 
+  branch-created: 
     when: 
       equal: [ "create", << pipeline.parameters.GHA_Event >>] 
+    jobs: 
+      - aws-cli-cred-setup:
+          context: aws
+  branch-deleted: 
+    when: 
+      equal: [ "delete", << pipeline.parameters.GHA_Event >>] 
     jobs: 
       - aws-cli-cred-setup:
           context: aws

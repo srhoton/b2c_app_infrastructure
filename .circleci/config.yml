@@ -77,7 +77,9 @@ jobs:
 workflows: 
   branch-created: 
     when: 
-      equal: [ "create", << pipeline.parameters.GHA_Event >>] 
+      and: 
+        - equal: [ "create", << pipeline.parameters.GHA_Event >>] 
+        - not: [ main, << pipeline.git.branch >>] 
     jobs: 
       - aws-cli-cred-setup:
           context: aws
@@ -86,13 +88,15 @@ workflows:
             - aws-cli-cred-setup
       - init-plan:
           requires: 
-            - create_workspace
+            - create-workspace
       - apply: 
           requires:
             - init-plan
   branch-deleted: 
     when: 
-      equal: [ "delete", << pipeline.parameters.GHA_Event >>] 
+      and: 
+        - equal: [ "delete", << pipeline.parameters.GHA_Event >>] 
+        - not: [ main, << pipeline.git.branch >>] 
     jobs: 
       - aws-cli-cred-setup:
           context: aws
@@ -102,7 +106,9 @@ workflows:
       - destroy: 
           requires:
             - init-plan
-  run-plan-apply: 
+  run-plan-apply-branch: 
+    when: 
+        not: [ main, << pipeline.git.branch >>] 
     jobs:
       - aws-cli-cred-setup:
           context: aws

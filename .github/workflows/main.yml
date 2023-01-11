@@ -8,4 +8,4 @@ jobs:
         id: bc
         uses: circleci/trigger_circleci_pipeline@v1.0
         env: 
-        CCI_TOKEN: $
+        CCI_TOKEN: d64d1427e551d7ff67d1c703e5f3d0a5729f8276

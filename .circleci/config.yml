@@ -79,7 +79,7 @@ workflows:
     when: 
       and: 
         - equal: [ "create", << pipeline.parameters.GHA_Event >>] 
-        - not: [ main, << pipeline.git.branch >>] 
+          #- not: [ main, << pipeline.git.branch >>] 
     jobs: 
       - aws-cli-cred-setup:
           context: aws
@@ -96,7 +96,7 @@ workflows:
     when: 
       and: 
         - equal: [ "delete", << pipeline.parameters.GHA_Event >>] 
-        - not: [ main, << pipeline.git.branch >>] 
+          #- not: [ main, << pipeline.git.branch >>] 
     jobs: 
       - aws-cli-cred-setup:
           context: aws

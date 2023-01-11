@@ -10,3 +10,9 @@ variable "az_mapping" {
 
   }
 }
+
+variable "feature" {
+    description = "The feature branch we are deploying"
+    type = string
+    default = ""
+}

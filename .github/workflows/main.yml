@@ -2,7 +2,7 @@ on:
   create
 jobs: 
   trigger-circleci:
-    runs-on: ubuntu:latest
+    runs-on: ubuntu-latest
     steps: 
       - name: branch_created
         id: bc

@@ -63,6 +63,8 @@ jobs:
   destroy: 
     docker: 
       - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
+        environment: 
+          GHA_Meta: << pipeline.parameters.GHA_Meta >>
     steps: 
       - checkout
       - run:
@@ -70,9 +72,9 @@ jobs:
           command: | 
             cd shared_infrastructure
             terraform init -input=false
-            terraform workspace select ${CIRCLE_BRANCH}
+            terraform workspace select ${GHA_Meta}
             terraform apply -destroy -input=false -auto-approve -var="feature=${CIRCLE_BRANCH}"
-            terraform workspace delete ${CIRCLE_BRANCH}
+            terraform workspace delete ${GHA_Meta}
 
 workflows: 
   branch-created: 

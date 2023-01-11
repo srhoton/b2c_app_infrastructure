@@ -110,7 +110,7 @@ workflows:
     when: 
         not: 
           matches: 
-            pattern: "^main$", 
+            pattern: "^main$" 
             value: << pipeline.git.branch >> 
     jobs:
       - aws-cli-cred-setup:

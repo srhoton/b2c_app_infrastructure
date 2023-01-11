@@ -108,12 +108,9 @@ workflows:
     jobs: 
       - aws-cli-cred-setup:
           context: aws
-      - init-plan:
+      - destroy: 
           requires: 
             - aws-cli-cred-setup
-      - destroy: 
-          requires:
-            - init-plan
   run-plan-apply-branch: 
     when:
       or: 

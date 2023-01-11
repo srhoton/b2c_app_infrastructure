@@ -108,7 +108,10 @@ workflows:
             - init-plan
   run-plan-apply-branch: 
     when: 
-        not: [ main, << pipeline.git.branch >>] 
+        not: 
+          matches: 
+            pattern: "^main$", 
+            value: << pipeline.git.branch >> 
     jobs:
       - aws-cli-cred-setup:
           context: aws

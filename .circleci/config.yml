@@ -24,6 +24,56 @@ jobs:
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           aws-region: AWS_REGION
+  create-workspace:
+    docker:
+      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
+    steps:
+      - checkout
+      - run:
+          name: terraform workspace create
+          command: |
+            cd app_infrastructure
+            terraform init -input=false
+            terraform workspace new ${CIRCLE_BRANCH}
+  init-plan:
+    docker:
+      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
+    steps:
+      - checkout
+      - run:
+          name: terraform init and plan
+          command: |
+            cd app_infrastructure
+            terraform init -input=false
+            terraform workspace select ${CIRCLE_BRANCH}
+            terraform plan -var="feature=${CIRCLE_BRANCH}"
+  apply: 
+    docker: 
+      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
+    steps: 
+      - checkout
+      - run:
+          name: terraform apply
+          command: | 
+            cd app_infrastructure
+            terraform init -input=false
+            terraform workspace select ${CIRCLE_BRANCH}
+            terraform apply -input=false -auto-approve -var="feature=${CIRCLE_BRANCH}"
+
+  destroy: 
+    docker: 
+      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
+    steps: 
+      - checkout
+      - run:
+          name: terraform destroy
+          command: | 
+            cd shared_infrastructure
+            terraform init -input=false
+            terraform workspace select ${CIRCLE_BRANCH}
+            terraform apply -destroy -input=false -auto-approve -var="feature=${CIRCLE_BRANCH}"
+            terraform workspace delete ${CIRCLE_BRANCH}
+
 workflows: 
   branch-created: 
     when: 
@@ -31,9 +81,39 @@ workflows:
     jobs: 
       - aws-cli-cred-setup:
           context: aws
+      - create_workspace: 
+          requires:
+            - aws-cli-cred-setup
+      - init-plan:
+          requires: 
+            - create_workspace
+      - apply: 
+          requires:
+            - init-plan
   branch-deleted: 
     when: 
       equal: [ "delete", << pipeline.parameters.GHA_Event >>] 
     jobs: 
       - aws-cli-cred-setup:
           context: aws
+      - init-plan:
+          requires: 
+            - create_workspace
+      - delete: 
+          requires:
+            - init-plan
+  run-plan-apply: 
+    jobs:
+      - aws-cli-cred-setup:
+          context: aws
+      - init-plan:
+          requires: 
+            - aws-cli-cred-setup
+      - request-apply: 
+          type: approval
+          requires: 
+            - init-plan
+      - apply: 
+          requires:
+            - request-apply
+

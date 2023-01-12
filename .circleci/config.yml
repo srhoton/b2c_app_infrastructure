@@ -59,6 +59,7 @@ jobs:
             terraform init -input=false
             terraform workspace select ${CIRCLE_BRANCH}
             terraform apply -input=false -auto-approve -var="feature=${CIRCLE_BRANCH}"
+            terraform output
 
   destroy: 
     docker: 

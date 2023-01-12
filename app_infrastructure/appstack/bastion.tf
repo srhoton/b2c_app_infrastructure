@@ -36,6 +36,6 @@ resource "aws_instance" "bastion_instance" {
   key_name = "b2c"
 
   tags = {
-    Name = "b2c_bastion"
+    Name = "b2c_bastion_${feature}"
   }
 }

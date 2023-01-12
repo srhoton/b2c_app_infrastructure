@@ -115,7 +115,7 @@ resource "aws_security_group" "b2c_frontend_ecs_service" {
 }
 
 resource "aws_ecs_service" "b2c_frontend_service" {
-  name = "b2c-frontend-service-$var.feature}"
+  name = "b2c-frontend-service-${var.feature}"
   cluster = aws_ecs_cluster.b2c_frontend.id
   task_definition = aws_ecs_task_definition.b2c_frontend_task_definition.arn
   desired_count = 1

@@ -16,3 +16,8 @@ variable "feature" {
     type = string
     default = ""
 }
+variable "cluster_identifier" {
+    description = "The source arn for RDS cloning"
+    type = string
+    default = "arn:aws:rds:us-west-2:705740530616:cluster:b2c-rds-cluster"
+}

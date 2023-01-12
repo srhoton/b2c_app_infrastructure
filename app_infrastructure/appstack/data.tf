@@ -47,3 +47,7 @@ data "aws_subnet" "public_3" {
     values = ["public-3"]
   }
 }
+
+#data "aws_rds_cluster" "source_cluster" {
+#  cluster_identifier = var.cluster_identifier
+#}

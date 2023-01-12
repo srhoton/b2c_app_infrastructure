@@ -52,9 +52,9 @@ resource "aws_rds_cluster" "b2c_rds_cluster_clone" {
 }
 
 resource "aws_rds_cluster_instance" "b2c_rds_instance" {
-  cluster_identifier = aws_rds_cluster_clone.b2c_rds_cluster.id
+  cluster_identifier = aws_rds_cluster.b2c_rds_cluster_clone.id
   instance_class = "db.serverless"
-  engine = aws_rds_cluster.b2c_rds_cluster.engine
-  engine_version = aws_rds_cluster.b2c_rds_cluster.engine_version
-  db_subnet_group_name = aws_rds_cluster.b2c_rds_cluster.db_subnet_group_name
+  engine = aws_rds_cluster.b2c_rds_cluster_clone.engine
+  engine_version = aws_rds_cluster.b2c_rds_cluster_clone.engine_version
+  db_subnet_group_name = aws_rds_cluster.b2c_rds_cluster_clone.db_subnet_group_name
 }

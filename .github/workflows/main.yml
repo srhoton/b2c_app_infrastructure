@@ -1,5 +1,5 @@
 on: 
-  [delete]
+  [create,delete]
 jobs: 
   trigger-circleci:
     runs-on: ubuntu-latest

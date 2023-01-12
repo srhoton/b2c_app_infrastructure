@@ -34,7 +34,7 @@ jobs:
           command: |
             cd app_infrastructure
             terraform init -input=false
-            terraform workspace new ${CIRCLE_BRANCH}
+            terraform workspace select ${CIRCLE_BRANCH} || terraform workspace new ${CIRCLE_BRANCH}
   init-plan:
     docker:
       - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
@@ -124,20 +124,15 @@ workflows:
             matches: 
               pattern: "^delete$" 
               value: << pipeline.parameters.GHA_Event >> 
-        - not:
-            matches: 
-              pattern: "^create$" 
-              value: << pipeline.parameters.GHA_Event >> 
     jobs:
       - aws-cli-cred-setup:
           context: aws
+      - create-workspace: 
+          requires:
+            - aws-cli-cred-setup
       - init-plan:
           requires: 
-            - aws-cli-cred-setup
-      #- request-apply: 
-        #type: approval
-         #requires: 
-           # - init-plan
+            - create-workspace
       - apply: 
           requires:
             - init-plan

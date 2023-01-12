@@ -37,6 +37,7 @@ resource "aws_rds_cluster" "b2c_rds_cluster_clone" {
   #master_password = "wochild1"
   db_subnet_group_name = aws_db_subnet_group.b2c_subnet_group.id
   vpc_security_group_ids = [aws_security_group.b2c_rds_inbound.id]
+  skip_final_snapshot = true
 
   serverlessv2_scaling_configuration {
     max_capacity = 1.0
@@ -44,7 +45,7 @@ resource "aws_rds_cluster" "b2c_rds_cluster_clone" {
   }
 
   restore_to_point_in_time {
-    source_cluster_identifier = "b2c_rds_cluster"
+    source_cluster_identifier = "arn:aws:rds:us-west-2:705740530616:cluster:b2c-rds-cluster"
     restore_type = "copy-on-write"
     use_latest_restorable_time = true
   }

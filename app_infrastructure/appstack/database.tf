@@ -1,6 +1,6 @@
 resource "aws_security_group" "b2c_rds_inbound" {
   name = "b2c_rds_inbound_${var.feature}"
-  vpc_id = aws_vpc.b2c_vpc.id
+  vpc_id = data.aws_vpc.b2c_vpc.id
   ingress {
     from_port = 3306
     to_port = 3306
@@ -50,10 +50,10 @@ resource "aws_rds_cluster" "b2c_rds_cluster_clone" {
   }
 }
 
-resource "aws_rds_cluster_instance" "b2c_rds_instance" {
-  cluster_identifier = aws_rds_cluster.b2c_rds_cluster.id
-  instance_class = "db.serverless"
-  engine = aws_rds_cluster.b2c_rds_cluster.engine
-  engine_version = aws_rds_cluster.b2c_rds_cluster.engine_version
-  db_subnet_group_name = aws_rds_cluster.b2c_rds_cluster.db_subnet_group_name
-}
+#resource "aws_rds_cluster_instance" "b2c_rds_instance" {
+#  cluster_identifier = aws_rds_cluster_clone.b2c_rds_cluster.id
+#  instance_class = "db.serverless"
+#  engine = aws_rds_cluster.b2c_rds_cluster.engine
+#  engine_version = aws_rds_cluster.b2c_rds_cluster.engine_version
+#  db_subnet_group_name = aws_rds_cluster.b2c_rds_cluster.db_subnet_group_name
+#}

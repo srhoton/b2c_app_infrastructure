@@ -1,8 +1,6 @@
 resource "aws_security_group" "b2c_bastion_inbound" {
   name = "b2c_bastion_${var.feature}_inbound"
-  #TODO fix this
   vpc_id = data.aws_vpc.b2c_vpc.id
-  #vpc_id = "vpc-0254c314d702279a9"
   ingress {
     from_port = 22
     to_port = 22
@@ -28,16 +26,16 @@ resource "aws_security_group" "b2c_bastion_inbound" {
   }
 }
 
-#resource "aws_instance" "bastion_instance" {
-#  ami = "ami-0ceecbb0f30a902a6"
-#  instance_type = "t3.micro"
-#  associate_public_ip_address = true
-#
-#  subnet_id = aws_subnet.b2c_subnets["public-1"].id
-#  vpc_security_group_ids = [aws_security_group.b2c_bastion_inbound.id]
-#  key_name = "b2c"
-#
-#  tags = {
-#    Name = "b2c_bastion"
-#  }
-#}
+resource "aws_instance" "bastion_instance" {
+  ami = "ami-0ceecbb0f30a902a6"
+  instance_type = "t3.micro"
+  associate_public_ip_address = true
+
+  subnet_id = data.aws_subnet.public_1.id
+  vpc_security_group_ids = [aws_security_group.b2c_bastion_inbound.id]
+  key_name = "b2c"
+
+  tags = {
+    Name = "b2c_bastion"
+  }
+}

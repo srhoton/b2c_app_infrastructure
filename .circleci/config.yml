@@ -123,6 +123,10 @@ workflows:
             matches: 
               pattern: "^delete$" 
               value: << pipeline.parameters.GHA_Event >> 
+        - not:
+            matches: 
+              pattern: "^create$" 
+              value: << pipeline.parameters.GHA_Event >> 
     jobs:
       - aws-cli-cred-setup:
           context: aws

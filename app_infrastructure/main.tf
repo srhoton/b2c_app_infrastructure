@@ -1,0 +1,3 @@
+module "appstack" {
+  source = "./appstack"
+}

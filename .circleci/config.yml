@@ -73,7 +73,8 @@ jobs:
             cd app_infrastructure
             terraform init -input=false
             terraform workspace select ${GHA_Meta}
-            terraform apply -destroy -input=false -auto-approve -var="feature=${CIRCLE_BRANCH}"
+            terraform apply -destroy -input=false -auto-approve -var="feature=${GHA_Meta}"
+            terraform workspace select default
             terraform workspace delete ${GHA_Meta}
 
 workflows: 

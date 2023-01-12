@@ -1,8 +1,8 @@
 resource "aws_security_group" "b2c_bastion_inbound" {
   name = "b2c_bastion_${var.feature}_inbound"
   #TODO fix this
-  #vpc_id = aws_vpc.b2c_vpc.id
-  vpc_id = "vpc-0254c314d702279a9"
+  vpc_id = data.aws_vpc.b2c_vpc.id
+  #vpc_id = "vpc-0254c314d702279a9"
   ingress {
     from_port = 22
     to_port = 22

@@ -108,27 +108,17 @@ workflows:
     jobs: 
       - aws-cli-cred-setup:
           context: aws
-      - init-plan:
+      - destroy: 
           requires: 
             - aws-cli-cred-setup
-      - destroy: 
-          requires:
-            - init-plan
   run-plan-apply-branch: 
     when:
-      or: 
+      and: 
         - not:
           matches: 
             pattern: "^main$" 
             value: << pipeline.git.branch >> 
-        - not: 
-          matches: 
-            pattern: "^delete$"
-            value:  << pipeline.parameters.GHA_Event >>
-        - not: 
-          matches: 
-            pattern: "^create$"
-            value:  << pipeline.parameters.GHA_Event >>
+        - not: << pipeline.parameters.GHA_Event >>
     jobs:
       - aws-cli-cred-setup:
           context: aws

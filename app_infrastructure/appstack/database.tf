@@ -75,3 +75,4 @@ output "db_master_username" {
   value = aws_rds_cluster.b2c_rds_cluster_clone.master_username
   description = "The master username of the instance"
 }
+

@@ -70,7 +70,7 @@ jobs:
       - run:
           name: terraform destroy
           command: | 
-            cd shared_infrastructure
+            cd app_infrastructure
             terraform init -input=false
             terraform workspace select ${GHA_Meta}
             terraform apply -destroy -input=false -auto-approve -var="feature=${CIRCLE_BRANCH}"
@@ -118,7 +118,14 @@ workflows:
             matches: 
               pattern: "^main$" 
               value: << pipeline.git.branch >> 
-        - not: << pipeline.parameters.GHA_Event >>
+        - not:
+            matches: 
+              pattern: "^create$" 
+              value: << pipeline.parameters.GHA_Event >> 
+        - not:
+            matches: 
+              pattern: "^delete$" 
+              value: << pipeline.parameters.GHA_Event >> 
     jobs:
       - aws-cli-cred-setup:
           context: aws

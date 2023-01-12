@@ -121,10 +121,6 @@ workflows:
               value: << pipeline.git.branch >> 
         - not:
             matches: 
-              pattern: "^create$" 
-              value: << pipeline.parameters.GHA_Event >> 
-        - not:
-            matches: 
               pattern: "^delete$" 
               value: << pipeline.parameters.GHA_Event >> 
     jobs:
@@ -133,11 +129,11 @@ workflows:
       - init-plan:
           requires: 
             - aws-cli-cred-setup
-      - request-apply: 
-          type: approval
-          requires: 
-            - init-plan
+              #- request-apply: 
+              #type: approval
+              #requires: 
+              # - init-plan
       - apply: 
           requires:
-            - request-apply
+            - init_plan
 

@@ -58,3 +58,21 @@ resource "aws_rds_cluster_instance" "b2c_rds_instance" {
   engine_version = aws_rds_cluster.b2c_rds_cluster_clone.engine_version
   db_subnet_group_name = aws_rds_cluster.b2c_rds_cluster_clone.db_subnet_group_name
 }
+
+output "db_writer_endpoint" {
+  value = module.appstack.aws_rds_cluster.b2c_rds_cluster_clone.endpoint
+  description = "The writer endpoint for the database"
+}
+output "db_reader_endpoint" {
+  value = module.appstack.aws_rds_cluster.b2c_rds_cluster_clone.reader_endpoint
+  description = "The reader endpoint for the database"
+}
+output "db_cluster_identifier" {
+  value = module.appstack.aws_rds_cluster.b2c_rds_cluster_clone.cluster_identifier
+  description = "The cluster identifier"
+}
+output "db_master_username" {
+  value = module.appstack.aws_rds_cluster.b2c_rds_cluster_clone.master_username
+  description = "The master username of the instance"
+}
+

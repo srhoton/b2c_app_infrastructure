@@ -45,7 +45,7 @@ resource "aws_rds_cluster" "b2c_rds_cluster_clone" {
   }
 
   restore_to_point_in_time {
-    source_cluster_identifier = data.aws_rds_cluster.source_cluster.arn
+    source_cluster_identifier = var.cluster_identifier
     restore_type = "copy-on-write"
     use_latest_restorable_time = true
   }

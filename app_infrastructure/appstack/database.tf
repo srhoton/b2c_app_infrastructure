@@ -20,7 +20,7 @@ resource "aws_security_group" "b2c_rds_inbound" {
 }
 
 resource "aws_db_subnet_group" "b2c_subnet_group" {
-  name = "b2c_subnet_group"
+  name = "b2c_subnet_group_${var.feature}"
   subnet_ids = [data.aws_subnet.private_1.id, data.aws_subnet.private_2.id, data.aws_subnet.private_3.id]
   tags = {
     Name = "b2c_subnet_group"
@@ -45,7 +45,7 @@ resource "aws_rds_cluster" "b2c_rds_cluster_clone" {
   }
 
   restore_to_point_in_time {
-    source_cluster_identifier = "arn:aws:rds:us-west-2:705740530616:cluster:b2c-rds-cluster"
+    source_cluster_identifier = data.aws_rds_cluster.source_cluster.arn
     restore_type = "copy-on-write"
     use_latest_restorable_time = true
   }

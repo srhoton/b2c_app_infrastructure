@@ -129,11 +129,11 @@ workflows:
       - init-plan:
           requires: 
             - aws-cli-cred-setup
-              #- request-apply: 
-              #type: approval
-              #requires: 
-              # - init-plan
+      #- request-apply: 
+        #type: approval
+         #requires: 
+           # - init-plan
       - apply: 
           requires:
-            - init_plan
+            - init-plan
 

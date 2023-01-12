@@ -118,7 +118,7 @@ workflows:
           matches: 
             pattern: "^main$" 
             value: << pipeline.git.branch >> 
-        - not: << pipeline.parameters.GHA_Event >>
+              # - not: << pipeline.parameters.GHA_Event >>
     jobs:
       - aws-cli-cred-setup:
           context: aws

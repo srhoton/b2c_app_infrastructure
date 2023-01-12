@@ -39,3 +39,8 @@ resource "aws_cloudfront_distribution" "b2c_frontend_distribution" {
     }
   }
 }
+
+output {
+  value = aws_cloudfront_distribution.b2c_frontend_distribution.dns_name
+  description = "The Cloudfront frontend DNS Name"
+}

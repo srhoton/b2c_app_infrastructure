@@ -68,7 +68,7 @@ resource "aws_lb" "b2c_frontend_lb" {
 }
 
 resource "aws_lb_target_group" "b2c_frontend_target_group" {
-  name = "b2c-frontend-target-group-${var.feature}"
+  name = "b2c-frontend-tg-${var.feature}"
   port = 80
   protocol = "HTTP"
   target_type = "ip"

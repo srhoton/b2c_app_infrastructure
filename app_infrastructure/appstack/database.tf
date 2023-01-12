@@ -58,3 +58,16 @@ resource "aws_rds_cluster_instance" "b2c_rds_instance" {
   engine_version = aws_rds_cluster.b2c_rds_cluster_clone.engine_version
   db_subnet_group_name = aws_rds_cluster.b2c_rds_cluster_clone.db_subnet_group_name
 }
+
+output "db_writer_endpoint" {
+  aws_rds_cluster.b2c_rds_cluster_clone.endpoint
+}
+output "db_reader_endpoint" {
+  aws_rds_cluster.b2c_rds_cluster_clone.reader_endpoint
+}
+output "db_cluster_identifier" {
+  aws_rds_cluster.b2c_rds_cluster_clone.cluster_identifier
+}
+output "db_master_username" {
+  aws_rds_cluster.b2c_rds_cluster_clone.master_username
+}

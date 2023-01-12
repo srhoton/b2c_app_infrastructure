@@ -60,14 +60,18 @@ resource "aws_rds_cluster_instance" "b2c_rds_instance" {
 }
 
 output "db_writer_endpoint" {
-  aws_rds_cluster.b2c_rds_cluster_clone.endpoint
+  value = aws_rds_cluster.b2c_rds_cluster_clone.endpoint
+  description = "The writer endpoint for the database"
 }
 output "db_reader_endpoint" {
-  aws_rds_cluster.b2c_rds_cluster_clone.reader_endpoint
+  value = aws_rds_cluster.b2c_rds_cluster_clone.reader_endpoint
+  description = "The reader endpoint for the database"
 }
 output "db_cluster_identifier" {
-  aws_rds_cluster.b2c_rds_cluster_clone.cluster_identifier
+  value = aws_rds_cluster.b2c_rds_cluster_clone.cluster_identifier
+  description = "The cluster identifier"
 }
 output "db_master_username" {
-  aws_rds_cluster.b2c_rds_cluster_clone.master_username
+  value = aws_rds_cluster.b2c_rds_cluster_clone.master_username
+  description = "The master username of the instance"
 }

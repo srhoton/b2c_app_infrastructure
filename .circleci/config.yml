@@ -83,9 +83,10 @@ workflows:
       and: 
         - equal: [ "create", << pipeline.parameters.GHA_Event >>] 
         - not: 
-          matches: 
-            pattern: "^main$" 
-            value: << pipeline.git.branch >> 
+            matches: 
+              pattern: "^main$" 
+              value: << pipeline.git.branch >> 
+
     jobs: 
       - aws-cli-cred-setup:
           context: aws
@@ -103,9 +104,9 @@ workflows:
       and: 
         - equal: [ "delete", << pipeline.parameters.GHA_Event >>] 
         - not: 
-          matches: 
-            pattern: "^main$" 
-            value: << pipeline.git.branch >> 
+            matches: 
+              pattern: "^main$" 
+              value: << pipeline.git.branch >> 
     jobs: 
       - aws-cli-cred-setup:
           context: aws

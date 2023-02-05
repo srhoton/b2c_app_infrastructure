@@ -27,7 +27,7 @@ resource "aws_security_group" "b2c_bastion_inbound" {
 }
 
 resource "aws_instance" "bastion_instance" {
-  ami = "ami-0ceecbb0f30a902a6"
+  ami = "ami-00874d747dde814fa"
   instance_type = "t3.micro"
   associate_public_ip_address = true
 

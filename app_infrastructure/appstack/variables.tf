@@ -19,5 +19,15 @@ variable "feature" {
 variable "cluster_identifier" {
     description = "The source arn for RDS cloning"
     type = string
-    default = "arn:aws:rds:us-west-2:705740530616:cluster:b2c-rds-cluster"
+    default = "arn:aws:rds:us-east-1:705740530616:cluster:b2c-rds-cluster"
+}
+
+variable "acm_certificate" {
+  description = "The ACM certificate ARN to use with Cloudfront"
+  type = string
+}
+
+variable "route53_zone" {
+  description = "The route53 zone to use with Cloudfront"
+  type = string
 }

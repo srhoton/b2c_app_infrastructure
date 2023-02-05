@@ -1,4 +1,5 @@
 resource "aws_cloudfront_distribution" "b2c_frontend_distribution" {
+  aliases = [ "${var.feature}.${var.route53_zone}" ]
   origin {
     domain_name = aws_lb.b2c_frontend_lb.dns_name
     origin_id = "b2c_frontend-${var.feature}"
@@ -10,7 +11,9 @@ resource "aws_cloudfront_distribution" "b2c_frontend_distribution" {
     }
   }
   viewer_certificate {
-    cloudfront_default_certificate = true
+    #cloudfront_default_certificate = true
+    acm_certificate_arn = aws_acm_certificate.cloudfront_certificate.arn
+    ssl_support_method = "sni-only"
   }
   enabled = true
   default_cache_behavior {
